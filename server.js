@@ -28,7 +28,7 @@ if (process.env.NODE_ENV === 'prodcution') {
   // app.use(express.static('client/build'));
   //all reqests other than api should be responded with index.html in static folder(client/build)
   app.get('*', (req, res) =>
-    res.sendFile(path.join(__dirname + './client/build/index.html'))
+    res.sendFile(path.resolve(__dirname, './client/build/index.html'))
   );
 }
 
