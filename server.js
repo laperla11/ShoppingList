@@ -21,25 +21,21 @@ connectDB();
 // Use Routes
 app.use('/api/items', items);
 
-// Set static folder
+//Static file declaration
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-// Serve static assets(client files) if in production
+//production mode
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'client/build')));
-  // app.use(express.static('client/build'));
-  //all reqests other than api should be responded with index.html
-  //in static folder(client / build)
-  app.get('*', (req, res) =>
-    res.sendFile(path.join((__dirname = 'client/build/index.html')))
-  );
+  app.use(express.static(path.join(__dirname, 'client/build'))); //
+  app.get('*', (req, res) => {
+    res.sendfile(path.join((__dirname = 'client/build/index.html')));
+  });
 }
 
 //build mode
-
-app.get('*', (req, res) =>
-  res.sendFile(path.join(__dirname + '/client/build/index.html'))
-);
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/public/index.html'));
+});
 
 const PORT = process.env.PORT || 5000;
 
