@@ -22,7 +22,7 @@ connectDB();
 app.use('/api/items', items);
 
 // Serve static assets(client files) if in production
-if (process.env.NODE_ENV === 'prodcution') {
+if (process.env.NODE_ENV === 'production') {
   // Set static folder
   app.use(express.static(path.join(__dirname, './client/build')));
   // app.use(express.static('client/build'));
