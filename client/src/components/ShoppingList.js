@@ -17,13 +17,13 @@ export const ShoppingList = () => {
     <>
       {!isLoading ? (
         <ListGroup>
-          <TransitionGroup className='shopping-list'>
-            {items
-              .sort((a, b) => new Date(b.date) - new Date(a.date))
-              .map(({ _id, name }) => (
-                <CSSTransition key={_id} timeout={500} classNames='fade'>
-                  <ListGroupItem>
-                    {auth.isAuthenticated ? (
+          {auth.isAuthenticated && (
+            <TransitionGroup className='shopping-list'>
+              {items
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .map(({ _id, name }) => (
+                  <CSSTransition key={_id} timeout={500} classNames='fade'>
+                    <ListGroupItem>
                       <Button
                         className='remove-btn'
                         color='danger'
@@ -34,12 +34,12 @@ export const ShoppingList = () => {
                       >
                         &#10005;
                       </Button>
-                    ) : null}
-                    {name}
-                  </ListGroupItem>
-                </CSSTransition>
-              ))}
-          </TransitionGroup>
+                      {name}
+                    </ListGroupItem>
+                  </CSSTransition>
+                ))}
+            </TransitionGroup>
+          )}
         </ListGroup>
       ) : (
         <Spinner style={{ width: '3rem', height: '3rem' }} />
