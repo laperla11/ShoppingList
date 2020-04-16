@@ -14,6 +14,7 @@ import { GlobalContext } from '../state/contexts/GlobalContext';
 import { AuthContext } from '../state/contexts/AuthContext';
 
 import LoginModal from './auth/LoginModal';
+import RegisterModal from './auth/RegisterModal';
 
 const AddItem = () => {
   const { addItem } = useContext(GlobalContext);
@@ -45,6 +46,7 @@ const AddItem = () => {
         </Button>
       ) : (
         <div
+          className='shop'
           style={{
             height: '70vh',
             display: 'flex',
@@ -62,6 +64,7 @@ const AddItem = () => {
           >
             <span style={{ padding: '.5rem 0' }}>Please</span>
             <LoginModal />
+            <span style={{ padding: '.5rem 0' }}>or</span> <RegisterModal />
             <span style={{ padding: '.5rem 0' }}>to manage </span>
             <span style={{ padding: '.5rem .5rem' }}>your shopping list.</span>
           </h4>

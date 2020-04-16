@@ -34,11 +34,7 @@ export const ShoppingList = () => {
                       >
                         &#10005;
                       </Button>
-                    ) : (
-                      <span className='bullet' size='sm'>
-                        &#10148;
-                      </span>
-                    )}
+                    ) : null}
                     {name}
                   </ListGroupItem>
                 </CSSTransition>
