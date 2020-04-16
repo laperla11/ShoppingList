@@ -44,7 +44,7 @@ const AddItem = () => {
           Add Item
         </Button>
       ) : (
-        <div
+        <div className='shop'
           style={{
             height: '70vh',
             display: 'flex',
