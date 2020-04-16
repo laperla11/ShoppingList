@@ -16,31 +16,35 @@ export const ShoppingList = () => {
   return (
     <>
       {!isLoading ? (
-        <ListGroup>
-          {auth.isAuthenticated && (
-            <TransitionGroup className='shopping-list'>
-              {items
-                .sort((a, b) => new Date(b.date) - new Date(a.date))
-                .map(({ _id, name }) => (
-                  <CSSTransition key={_id} timeout={500} classNames='fade'>
-                    <ListGroupItem>
-                      <Button
-                        className='remove-btn'
-                        color='danger'
-                        size='sm'
-                        onClick={() => {
-                          deleteItem(_id);
-                        }}
-                      >
-                        &#10005;
-                      </Button>
-                      {name}
-                    </ListGroupItem>
-                  </CSSTransition>
-                ))}
-            </TransitionGroup>
-          )}
-        </ListGroup>
+        auth.isAuthenticated && (
+          <ListGroup>
+            {items.length ? (
+              <TransitionGroup className='shopping-list'>
+                {items
+                  .sort((a, b) => new Date(b.date) - new Date(a.date))
+                  .map(({ _id, name }) => (
+                    <CSSTransition key={_id} timeout={500} classNames='fade'>
+                      <ListGroupItem>
+                        <Button
+                          className='remove-btn'
+                          color='danger'
+                          size='sm'
+                          onClick={() => {
+                            deleteItem(_id);
+                          }}
+                        >
+                          &#10005;
+                        </Button>
+                        {name}
+                      </ListGroupItem>
+                    </CSSTransition>
+                  ))}
+              </TransitionGroup>
+            ) : (
+              <h5>Your shopping list is empty.</h5>
+            )}
+          </ListGroup>
+        )
       ) : (
         <Spinner style={{ width: '3rem', height: '3rem' }} />
       )}
