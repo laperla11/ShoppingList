@@ -6,7 +6,9 @@ const Item = require('../models/Items.model'); // Item --> becomes items as name
 
 const getItems = async (req, res, next) => {
   try {
-    const items = await Item.find().sort({ date: -1 });
+    const items = await Item.find({ createdBy: req.params.userId }).sort({
+      date: -1,
+    });
     res.status(200).json(items);
   } catch (err) {
     console.log(err);
@@ -17,6 +19,7 @@ const addItem = async (req, res, next) => {
   try {
     const newItem = new Item({
       name: req.body.name,
+      createdBy: req.body.createdBy,
     });
 
     const item = await newItem.save();

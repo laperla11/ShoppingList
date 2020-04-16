@@ -10,10 +10,15 @@ import {
   Button,
 } from 'reactstrap';
 
-import { GlobalContext } from '../context/GlobalState';
+import { GlobalContext } from '../state/contexts/GlobalContext';
+import { AuthContext } from '../state/contexts/AuthContext';
+
+import LoginModal from './auth/LoginModal';
 
 const AddItem = () => {
   const { addItem } = useContext(GlobalContext);
+  const { auth } = useContext(AuthContext);
+
   const [modal, setModal] = useState(false);
   const [name, setName] = useState('');
 
@@ -28,15 +33,40 @@ const AddItem = () => {
 
   return (
     <div>
-      <Button
-        color='dark'
-        style={{ marginBottom: '2rem' }}
-        onClick={(e) => {
-          toggle();
-        }}
-      >
-        Add Item
-      </Button>
+      {auth.isAuthenticated ? (
+        <Button
+          color='dark'
+          style={{ marginBottom: '2rem' }}
+          onClick={(e) => {
+            toggle();
+          }}
+        >
+          Add Item
+        </Button>
+      ) : (
+        <div
+          style={{
+            height: '70vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <h4
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+            }}
+            className='mb-3'
+          >
+            <span style={{ padding: '.5rem 0' }}>Please</span>
+            <LoginModal />
+            <span style={{ padding: '.5rem 0' }}>to manage </span>
+            <span style={{ padding: '.5rem .5rem' }}>your shopping list.</span>
+          </h4>
+        </div>
+      )}
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Add To Shopping List</ModalHeader>
         <ModalBody>

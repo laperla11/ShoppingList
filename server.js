@@ -6,7 +6,10 @@ const colors = require('colors');
 const connectDB = require('./config/db');
 const path = require('path');
 
+// import Routes from api folder
 const items = require('./routes/api/items');
+const users = require('./routes/api/users');
+const auth = require('./routes/api/auth');
 
 dotenv.config({ path: './config/config.env' });
 
@@ -20,6 +23,8 @@ connectDB();
 
 // Use Routes
 app.use('/api/items', items);
+app.use('/api/users', users);
+app.use('/api/auth', auth);
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
