@@ -15,6 +15,9 @@ import { AuthContext } from '../state/contexts/AuthContext';
 import RegisterModal from './auth/RegisterModal';
 import LoginModal from './auth/LoginModal';
 import Logout from './auth/Logout';
+import CartIcon from './CartIcon';
+import { ReactComponent as ILoveShoppingIcon } from '../assets/iLoveShopping.svg';
+import logo from '../assets/iLoveShopping.jpg';
 
 const AppNavbar = (props) => {
   const { auth } = useContext(AuthContext);
@@ -52,14 +55,13 @@ const AppNavbar = (props) => {
     <div>
       <Navbar color='dark' dark expand='sm' className='mb-5'>
         <Container>
-          <NavbarBrand href='/'>ShoppingList</NavbarBrand>
+          <NavbarBrand className='logo-container' href='/'>
+            <img className='logo' src={logo} />
+          </NavbarBrand>
+          <CartIcon />
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
-            <Nav
-              style={{ width: '100%', justifyContent: 'flex-end' }}
-              className='mr-auto'
-              navbar
-            >
+            <Nav className='mr-auto nav-container' navbar>
               {isAuthenticated ? authLinks : guestLinks}
             </Nav>
           </Collapse>
