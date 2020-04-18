@@ -8,7 +8,13 @@ import { ErrorContext } from './ErrorContext';
 import { AuthContext, tokenConfig } from './AuthContext';
 import { returnErrors } from '../actions/errorActions';
 
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM } from '../actions/types';
+import {
+  GET_ITEMS,
+  CLEAR_ITEMS,
+  ADD_ITEM,
+  DELETE_ITEM,
+  UPDATE_ITEM,
+} from '../actions/types';
 
 //initial state
 
@@ -50,6 +56,27 @@ export const GlobalProvider = ({ children }) => {
       // dispatchError(returnErrors(err.response.data, err.response.status));
     }
   }
+  //---------// CLEAR ITEMS //---------------->
+  async function clearItems() {
+    console.log('clear', auth.user.id);
+    try {
+      const res = await axios.put(
+        `/api/items/clear`,
+        { userId: auth.user.id },
+        tokenConfig(auth.token)
+      );
+
+      dispatch({
+        type: CLEAR_ITEMS,
+        // payload: res.data,
+      });
+      getItems();
+    } catch (err) {
+      console.log({ err });
+      dispatchError(returnErrors(err.response.data, err.response.status));
+    }
+  }
+  //-------------------------------------->
   //---------// ADD an Item /---------------->
   async function addItem(item) {
     try {
@@ -72,6 +99,7 @@ export const GlobalProvider = ({ children }) => {
         type: ADD_ITEM,
         payload: res.data,
       });
+      getItems();
     } catch (err) {
       console.log('add-item', err);
       dispatchError(returnErrors(err.response.data, err.response.status));
@@ -86,7 +114,28 @@ export const GlobalProvider = ({ children }) => {
         type: DELETE_ITEM,
         payload: id,
       });
+      getItems();
     } catch (err) {
+      dispatchError(returnErrors(err.response.data, err.response.status));
+    }
+  }
+  //---------// UPDATE an Item //---------------->
+  async function updateItem(id) {
+    // console.log('update', id);
+    try {
+      const res = await axios.put(
+        `/api/items/${id}`,
+        {},
+        tokenConfig(auth.token)
+      );
+
+      dispatch({
+        type: UPDATE_ITEM,
+        payload: res.data,
+      });
+      getItems();
+    } catch (err) {
+      // console.log({ err });
       dispatchError(returnErrors(err.response.data, err.response.status));
     }
   }
@@ -101,7 +150,9 @@ export const GlobalProvider = ({ children }) => {
         error: state.error,
         isLoading: state.isLoading,
         getItems,
+        clearItems,
         deleteItem,
+        updateItem,
         addItem,
       }}
     >
