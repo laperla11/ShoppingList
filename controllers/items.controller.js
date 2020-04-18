@@ -19,6 +19,7 @@ const addItem = async (req, res, next) => {
   try {
     const newItem = new Item({
       name: req.body.name,
+      isPurchased: false,
       createdBy: req.body.createdBy,
     });
 
@@ -40,4 +41,32 @@ const deleteItem = async (req, res, next) => {
   }
 };
 
-module.exports = { getItems, addItem, deleteItem };
+const updateItem = async (req, res, next) => {
+  try {
+    const item = await Item.findById(req.params.id);
+    const { isPurchased, createdBy } = item;
+
+    item.isPurchased = !isPurchased;
+    await item.save();
+
+    res.status(201).json(item);
+  } catch (err) {
+    console.log(err);
+    res.status(404).json({ success: false });
+  }
+};
+
+const clearItems = async (req, res, next) => {
+  console.log('clear', req.body);
+  try {
+    const items = await Item.find({ createdBy: req.body.userId });
+    await items.forEach((item) => item.remove());
+
+    res.status(200).json({ success: true });
+  } catch (err) {
+    console.log(err);
+    res.status(404).json({ success: false });
+  }
+};
+
+module.exports = { getItems, addItem, deleteItem, updateItem, clearItems };
