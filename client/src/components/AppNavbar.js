@@ -7,7 +7,6 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavbarText,
 } from 'reactstrap';
 
 import { AuthContext } from '../state/contexts/AuthContext';
@@ -16,7 +15,6 @@ import RegisterModal from './auth/RegisterModal';
 import LoginModal from './auth/LoginModal';
 import Logout from './auth/Logout';
 import CartIcon from './CartIcon';
-import { ReactComponent as ILoveShoppingIcon } from '../assets/iLoveShopping.svg';
 import logo from '../assets/iLoveShopping.jpg';
 
 const AppNavbar = (props) => {
@@ -56,7 +54,7 @@ const AppNavbar = (props) => {
       <Navbar color='dark' dark expand='sm' className='mb-5'>
         <Container>
           <NavbarBrand className='logo-container' href='/'>
-            <img className='logo' src={logo} />
+            <img className='logo' src={logo} alt='logo' />
           </NavbarBrand>
           <CartIcon />
           <NavbarToggler onClick={toggle} />
