@@ -10,11 +10,13 @@ export const ShoppingList = () => {
   const { items, getItems, updateItem, isLoading } = useContext(GlobalContext);
   useEffect(() => {
     getItems();
+    console.log(items.length);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth.user, items.length]);
 
   return (
     <>
+      {console.log('render')}
       {!isLoading ? (
         auth.isAuthenticated && (
           <ListGroup>
