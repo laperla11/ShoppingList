@@ -11,7 +11,7 @@ export const ShoppingList = () => {
   useEffect(() => {
     getItems();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [auth.user, items]);
+  }, [auth.user, items.length]);
 
   return (
     <>
