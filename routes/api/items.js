@@ -4,9 +4,16 @@ const auth = require('../../middleware/auth');
 
 const {
   getItems,
+  clearItems,
   addItem,
   deleteItem,
+  updateItem,
 } = require('../../controllers/items.controller');
+
+// @route  PUT api/items/clear
+// @desc   Clear All Items
+// @access Private
+router.put('/clear', auth, clearItems);
 
 // @route  POST api/items
 // @desc   Create A Post
@@ -23,5 +30,10 @@ router.route('/:userId').get(getItems);
 // @desc   Delete An Item
 // @access Private
 router.delete('/:id', auth, deleteItem);
+
+// @route  UPDATE/PUT api/items/:id
+// @desc   Update An Item
+// @access Private
+router.put('/:id', auth, updateItem);
 
 module.exports = router;

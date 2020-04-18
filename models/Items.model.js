@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const ItemSchema = new Schema({
   name: { type: String, required: true },
   createdBy: { type: String },
+  isPurchased: { type: Boolean },
   date: { type: Date, default: Date.now },
 });
 
