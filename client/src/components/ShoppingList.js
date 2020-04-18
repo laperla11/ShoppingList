@@ -7,7 +7,7 @@ import { AuthContext } from '../state/contexts/AuthContext';
 
 export const ShoppingList = () => {
   const { auth } = useContext(AuthContext);
-  const { items, getItems, deleteItem, isLoading } = useContext(GlobalContext);
+  const { items, getItems, updateItem, isLoading } = useContext(GlobalContext);
   useEffect(() => {
     getItems();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -21,6 +21,7 @@ export const ShoppingList = () => {
             {items.length ? (
               <TransitionGroup className='shopping-list'>
                 {items
+                  .filter((item) => !item.isPurchased)
                   .sort((a, b) => new Date(b.date) - new Date(a.date))
                   .map(({ _id, name }) => (
                     <CSSTransition key={_id} timeout={500} classNames='fade'>
@@ -30,7 +31,7 @@ export const ShoppingList = () => {
                           color='danger'
                           size='sm'
                           onClick={() => {
-                            deleteItem(_id);
+                            updateItem(_id);
                           }}
                         >
                           &#10005;
