@@ -60,7 +60,7 @@ export const GlobalProvider = ({ children }) => {
   async function clearItems() {
     console.log('clear', auth.user.id);
     try {
-      const res = await axios.put(
+      await axios.put(
         `/api/items/clear`,
         { userId: auth.user.id },
         tokenConfig(auth.token)
