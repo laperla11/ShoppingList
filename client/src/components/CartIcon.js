@@ -68,7 +68,7 @@ const CartIcon = () => {
                     </Button>
                   </>
                 ) : (
-                  <h5>Your shopping cart is empty.</h5>
+                  <h6>Your shopping cart is empty.</h6>
                 )}
               </ListGroup>
             )

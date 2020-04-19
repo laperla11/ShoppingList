@@ -4,7 +4,6 @@ import { Container } from 'reactstrap';
 import AppNavbar from './components/AppNavbar';
 import { ShoppingList } from './components/ShoppingList';
 import AddItem from './components/AddItemModal';
-import ShopList from './components/ShopList';
 
 import { GlobalProvider } from './state/contexts/GlobalContext';
 import { AuthProvider } from './state/contexts/AuthContext';
@@ -20,7 +19,6 @@ function App() {
         <GlobalProvider>
           <AppNavbar />
           <Container>
-            <ShopList />
             <AddItem />
             <ShoppingList />
           </Container>
